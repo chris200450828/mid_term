@@ -93,16 +93,43 @@ def get_author(i):
 
 
 def get_title(i):
-    title_parent = i.find("div", class_='title')
-    title = title_parent.find('a')
-    return title.text
+    try:
+        title_parent = i.find("div", class_='title')
+        title = title_parent.find('a')
+        return title.text
+    except AttributeError as deleted_forum:
+        title = i.find("div", class_='title')
+        return title.text
+    except Exception as NonetypeError:
+        return "nothing found"
 
 
 def get_link(i):
-    link_parent = i.find("div", class_='title')
-    link_element = link_parent.find('a')
-    link = link_element.get('href')
-    return link
+    try:
+        link_parent = i.find("div", class_='title')
+        link_element = link_parent.find('a')
+        link = link_element.get('href')
+        return link
+    except AttributeError as NonetypeError:
+        return " "
+
+
+def get_push(i):
+    try:
+        try:
+            push_parent = i.find("div", class_='nrec')
+            push = push_parent.find("span", class_='hl f3')
+            return push.text
+        except AttributeError as h3:
+            push_parent = i.find("div", class_='nrec')
+            try:
+                push = push_parent.find("span", class_='hl f1')
+                return push.text
+            except AttributeError as h2:
+                push = push_parent.find("span", class_='hl f2')
+                return push.text
+    except AttributeError as NonetypeError:
+        return " "
 
 
 def advance_link_mode(opt=None, pop=None):
@@ -134,21 +161,6 @@ def link_mix(original_link):
     return link_result
 
 
-def get_push(i):
-    try:
-        push_parent = i.find("div", class_='nrec')
-        push = push_parent.find("span", class_='hl f3')
-        return push.text
-    except AttributeError as h3:
-        push_parent = i.find("div", class_='nrec')
-        try:
-            push = push_parent.find("span", class_='hl f1')
-            return push.text
-        except AttributeError as h2:
-            push = push_parent.find("span", class_='hl f2')
-            return push.text
-
-
 def get_data():
     author_list, title_list, push_list, link_list = [], [], [], []
     for i in general:
@@ -172,19 +184,29 @@ def get_data():
                 print(push)
                 print(link)
                 print('--------------')
-    if file_exist_checker():
-        print("saving file.....")
-        data_list = []
-        data_zip = zip(author_list, title_list, push_list, link_list)
-        for author, title, push, link in data_zip:
-            data_list.append({
-                "author": author,
-                "title": title,
-                "push_count": push,
-                "href": link
-            })
 
+            data_list = []
+            data_zip = zip(author_list, title_list, push_list, link_list)
+            for author, title, push, link in data_zip:
+                data_list.append({
+                    "author": author,
+                    "title": title,
+                    "push_count": push,
+                    "href": link
+                })
+    return data_list
+
+
+def advance_file_manager(data_list, opt=None):
+    if opt == True:
+        save_day = today.strftime("%Y_%m_%d")
+        file = save_day + '_article.json'
         json_string = json.dumps(data_list, ensure_ascii=False)
-        with open("article.json", "w", encoding='utf-8') as json_file:
+        with open(file, "w", encoding='utf-8') as json_file:
+            json_file.write(json_string)
+        print("done")
+    else:
+        json_string = json.dumps(data_list, ensure_ascii=False)
+        with open('article.json', "w", encoding='utf-8') as json_file:
             json_file.write(json_string)
         print("done")
