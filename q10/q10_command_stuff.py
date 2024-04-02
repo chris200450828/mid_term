@@ -210,3 +210,4 @@ def advance_file_manager(data_list, opt=None):
         with open('article.json', "w", encoding='utf-8') as json_file:
             json_file.write(json_string)
         print("done")
+
