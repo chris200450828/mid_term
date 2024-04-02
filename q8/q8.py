@@ -22,6 +22,6 @@ result_puber = qcs.merge(puber, n_puber)
 result_pubDate = qcs.merge(pubDate, n_pubDate)
 result_data = zip(result_title, result_author, result_link, result_puber, result_pubDate)
 
-encoding = 'utf-8'
+encoding = 'utf-8-sig'
 df = pd.DataFrame(result_data, columns=['title', 'authors', 'URL', 'publisher', 'publishedDate'])
 df.to_csv('pythonbook.csv', index=False, encoding=encoding)
