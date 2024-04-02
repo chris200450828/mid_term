@@ -57,6 +57,7 @@ def get_release_data():
         name_list.append(name[i].text)
         date_clean = re.sub(r"\n.*", "", date[i].text)
         date_clean = re.sub(r"\r.*", "", date_clean)
+        date_clean = date_clean.lstrip('上映日期：')
         date_list.append(date_clean)
     for i in link_parent:
         link = i.find('a')
@@ -68,7 +69,33 @@ def get_release_data():
             print(final_link)
 
     result = zip(name_list, date_list, link_list)
-    for i in result:
-        print(i)
     return result
 
+
+
+
+
+
+"""
+　　┏┓　　　┏┓+ +
+　┏┛┻━━━┛┻┓ + +
+　┃　　　　　　　┃ 　
+　┃　　　━　　　┃ ++ + + +
+ ████━████ ┃+
+　┃　　　　　　　┃ +
+　┃　　　┻　　　┃
+　┃　　　　　　　┃ + +
+　┗━┓　　　┏━┛
+　　　┃　　　┃　　　　　　　　　　　
+　　　┃　　　┃ + + + +
+　　　┃　　　┃
+　　　┃　　　┃ +  神獸保佑
+　　　┃　　　┃    code無bug　　
+　　　┃　　　┃　　+　　　　　　　　　
+　　　┃　 　　┗━━━┓ + +
+　　　┃ 　　　　　　　┣┓
+　　　┃ 　　　　　　　┏┛
+　　　┗┓┓┏━┳┓┏┛ + + + +
+　　　　┃┫┫　┃┫┫
+　　　　┗┻┛　┗┻┛+ + + +
+"""
