@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import json
 import os
 
+# 定義全局變量
 global soup
 global date
 global general
@@ -15,13 +16,16 @@ global apply_date
 global adv_link
 adv_link = False
 
+# 獲取今天的日期和昨天的日期
 today = datetime.today()
 yesterday = today - timedelta(days=1)
 yesterday = yesterday.strftime("%m/%d").lstrip("0")
 date = today.strftime("%m/%d").lstrip("0")
 
+# 設置時間緩沖區
 time_buffer = 300
 
+# 調試標誌
 general_debug = False
 dc_debug = False
 cd_debug = False
@@ -29,16 +33,19 @@ lm_debug = False
 gd_debug = False
 gd_adv_debug = False
 
+# PTT NBA論壇的URL
 url = "https://www.ptt.cc/bbs/NBA/index.html"
 response = requests.get(url)
 response.encoding = 'utf-8'
 html = response.text
 soup = BeautifulSoup(html, 'lxml')
 
+# 獲取所有帖子
 general = soup.find_all("div", class_='r-ent')
 
 
-def day_manager(opt=None):  # a prevention of 00:01 that cause no data found
+# 處理日期
+def day_manager(opt=None):
     global apply_date
     if opt is None:
         apply_date = date
@@ -54,7 +61,7 @@ def day_manager(opt=None):  # a prevention of 00:01 that cause no data found
             apply_date = date
             print("5 hours past, using today's date as criterion,using {} as date variable".format(date))
             print("=====================================")
-        else:  # will grab data if it is before 05:00
+        else:
             apply_date = yesterday
             print("using yesterday's date as criterion, using {} as date variable".format(yesterday))
             print("=====================================")
@@ -67,18 +74,19 @@ def day_manager(opt=None):  # a prevention of 00:01 that cause no data found
 day_manager()
 
 
+# 檢查日期是否符合
 def date_check(grand=None):
-    if grand is None:  # basically for debug purpose,will print out all the date
+    if grand is None:
         for i in general:
             meta = i.find("div", class_='meta')
-            date = meta.find("div", class_='date')
+            date_ = meta.find("div", class_='date')
             if general_debug or dc_debug:
                 print(date)
     else:
         meta = grand.find("div", class_='meta')
         date_ = meta.find("div", class_='date')
         if general_debug or dc_debug:
-            print(date.text.strip())
+            print(date_.text.strip())
             print(apply_date)
         if date_.text.strip() == apply_date:
             return True
@@ -86,12 +94,14 @@ def date_check(grand=None):
             return False
 
 
+# 獲取作者
 def get_author(i):
     meta = i.find("div", class_='meta')
     author = meta.find("div", class_='author')
     return author.text
 
 
+# 獲取標題
 def get_title(i):
     try:
         title_parent = i.find("div", class_='title')
@@ -104,6 +114,7 @@ def get_title(i):
         return "nothing found"
 
 
+# 獲取鏈接
 def get_link(i):
     try:
         link_parent = i.find("div", class_='title')
@@ -114,6 +125,7 @@ def get_link(i):
         return " "
 
 
+# 獲取推文數
 def get_push(i):
     try:
         try:
@@ -132,6 +144,7 @@ def get_push(i):
         return " "
 
 
+# 高級鏈接模式
 def advance_link_mode(opt=None, pop=None):
     global adv_link
     if opt == True:
@@ -143,6 +156,7 @@ def advance_link_mode(opt=None, pop=None):
         adv_link = False
 
 
+# 檢查文件是否存在
 def file_exist_checker():
     file = "article.json"
     if os.path.isfile(file):
@@ -152,6 +166,7 @@ def file_exist_checker():
         return True
 
 
+# 混合鏈接
 def link_mix(original_link):
     base = url
     addon = original_link
@@ -161,6 +176,7 @@ def link_mix(original_link):
     return link_result
 
 
+# 獲取數據
 def get_data():
     author_list, title_list, push_list, link_list = [], [], [], []
     for i in general:
@@ -197,6 +213,7 @@ def get_data():
     return data_list
 
 
+# 高級文件管理器
 def advance_file_manager(data_list, opt=None):
     if opt == True:
         save_day = today.strftime("%Y_%m_%d")
@@ -232,6 +249,5 @@ def advance_file_manager(data_list, opt=None):
  ======`-.____`-.___\_____/___.-`____.-'======
  `=---='
           .............................................
-    你瞧這題的code的bug多到佛祖都倒了
+    你瞧這題的code的bug,多到佛祖都倒了
 """
-
