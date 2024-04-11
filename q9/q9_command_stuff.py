@@ -15,7 +15,7 @@ response.encoding = 'utf-8'
 html = response.text
 soup = BeautifulSoup(html, 'lxml')
 
-
+#    鏈接跳轉
 def get_release():
     movie_scetion = soup.find_all('li')
     section_text = "近期上映"
@@ -29,7 +29,7 @@ def get_release():
                     print(link)
                 return link
 
-
+#    鏈接混合
 def link_mix():
     global soup
     if get_release():
@@ -46,7 +46,7 @@ def link_mix():
     else:
         print("Error:next section link didn't found")
 
-
+#    抓取資料
 def get_release_data():
     result, link_list, date_list, name_list = [], [], [], []
     date = soup.find_all("div", class_='runtime')
