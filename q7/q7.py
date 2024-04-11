@@ -6,6 +6,7 @@ result_list = []
 TEAM = ["CLE", "HOU", "GSW"]
 num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l = [], [], [], [], [], [], [], []
 
+#    呼叫鏈結混合函式
 url = qcs.start_up(TEAM)
 for i in url:
     print(i)
@@ -13,6 +14,7 @@ for i in url:
     qcs.get_data(soup)
     result_list.append(qcs.get_data(soup))
 
+#    重新壓縮zip
 for i in result_list:
     for j in i:
         obj = list(j)
