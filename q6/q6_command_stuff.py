@@ -17,7 +17,7 @@ response.encoding = 'utf-8'
 html = response.text
 soup = BeautifulSoup(html, 'lxml')
 
-
+#    跳轉到票房排行榜
 def start_up():
     rank_scetion = soup.find_all('li')
     section_text = "票房排行榜"
@@ -31,7 +31,7 @@ def start_up():
                     print(link)
                 return link
 
-
+#    混合連結
 def link_mix():
     global soup
     global url
@@ -47,7 +47,7 @@ def link_mix():
         print("Error:next section link didn't found")
     url = release
 
-
+#    第二次混和
 def second_link_mix():
     global soup
     view_more = soup.find_all('a')
@@ -85,7 +85,6 @@ def get_rank():
 
 
 #   寫完才想到直接用loop生一個陣列就好...
-
 def get_title():
     title_list = []
     table = soup.find_all("table")[1]
