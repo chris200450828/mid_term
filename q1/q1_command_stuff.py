@@ -16,7 +16,7 @@ class FuncsStuff:
             desc_l.append(desc.string)
 
             dura = i.find('div', class_="runtime")
-            dura_l.append(dura.text.strip('  上映日期：4/12/2024  上映廳數 (9)'))
+            dura_l.append(dura.text.strip())
 
         return dura_l, title_l, desc_l, link_l
 
@@ -27,5 +27,5 @@ class FuncsStuff:
             print(title[i])
             print(link[i])
             print(desc[i])
-            print(dura[i])
+            print(dura[i][:7])
             print('----------------------------------------------------')
