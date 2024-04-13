@@ -5,6 +5,7 @@ import re
 
 general_debug = False
 
+
 #    定義啟動器,接收一個陣列
 def start_up(team):
     url_List = []
@@ -16,6 +17,7 @@ def start_up(team):
 
     return url_List
 
+
 #    接收一個stirng
 def get_soup(target_url):
     response = requests.get(target_url)
@@ -25,9 +27,10 @@ def get_soup(target_url):
 
     return soup
 
+
 #    接收soup
 def get_data(soup):
-    num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l = [], [], [], [], [], [], [], []
+    team_name_l, num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l = [], [], [], [], [], [], [], [], []
     i = 0
 
     table_parent = soup.find("table", class_="sortable")
@@ -39,6 +42,10 @@ def get_data(soup):
             num_l.append("NULL")
         else:
             num_l.append(num.text)
+
+        team_name_parent = soup.find("div", {'data-template': 'Partials/Teams/Summary'})
+        team = team_name_parent.find('h1').find_all('span')[1]
+        team_name_l.append(team.text)
 
         name_grand = i.find("td", {'data-stat': "player"})
         name_parent = name_grand.find("a")
@@ -67,5 +74,5 @@ def get_data(soup):
         birth = i.find("td", {'data-stat': "birth_date"})
         birth_l.append(birth.text)
 
-    result = zip(num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l)
+    result = zip(num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l, team_name_l)
     return result
