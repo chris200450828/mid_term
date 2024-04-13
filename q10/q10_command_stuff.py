@@ -144,7 +144,7 @@ def get_push(i):
         return " "
 
 
-# 高級鏈接模式
+# 進階鏈接儲存模式
 def advance_link_mode(opt=None, pop=None):
     global adv_link
     if opt == True:
@@ -213,7 +213,7 @@ def get_data():
     return data_list
 
 
-# 高級文件管理器
+# 進階檔名管理模式
 def advance_file_manager(data_list, opt=None):
     if opt == True:
         save_day = today.strftime("%Y_%m_%d")
