@@ -3,7 +3,7 @@ import pandas
 
 
 class FuncStart:
-    def __init__(self, soup, history_soup):
+    def __init__(self, soup, history_soup): #    接收兩個變數,前者是現在的soup,後者是歷史的soup
         self.soup = soup
         self.history_soup = history_soup
 
@@ -77,7 +77,7 @@ class FuncStart:
             forward_l.append(forward.get('href'))
         return forward_l
 
-    def dealed_url(self):
+    def dealed_url(self):    #    返回遠期匯率的url
         base_url = "https://rate.bot.com.tw/xrt?Lang=zh-TW"
         forward_l = self.get_forward_url()
         result_forward = []
@@ -86,7 +86,7 @@ class FuncStart:
 
         return result_forward
 
-    def get_forward_data(self, forward_soup):
+    def get_forward_data(self, forward_soup):    #    僅接受一個soup   
         date_l, buy_l, sell_l = [], [], []
         forward_soup = forward_soup
         title = forward_soup.find('th', class_='currency').find('div').find('div').find('div', class_='hidden-phone')
