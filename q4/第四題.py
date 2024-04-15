@@ -11,4 +11,4 @@ with open("NHI_EnteroviralInfection.csv", 'w', encoding='utf-8-sig') as csvfile:
     csvfile.write(response.content.decode('utf-8-sig'))
 
 
-print("CSV文件已成功写入。")
+print("CSV文件已成功寫入。")
