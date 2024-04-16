@@ -29,9 +29,9 @@ for i in result_list:
         birth_l.append(obj[7])
         team_name_l.append(obj[8])
 
-result = zip(num_l, name_l, pos_l, ht_l, wt_l, exp_l, college_l, birth_l, team_name_l)
+result = zip(num_l, name_l, pos_l, wt_l, exp_l, college_l, birth_l, team_name_l)
 
 encodings = 'utf-8-sig'
 df = pd.DataFrame(result,
-                  columns=['No.', 'Name', 'Position', 'Height', 'Weight', 'Experience', 'College', 'Birth', 'Team'])
+                  columns=['No.', 'Name', 'Position', 'Weight', 'Experience', 'College', 'Birth', 'Team'])
 df.to_csv('player.csv', index=False, encoding=encodings)
