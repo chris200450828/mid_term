@@ -20,8 +20,8 @@ soup = BeautifulSoup(html, 'lxml')
 #    跳轉到票房排行榜
 def start_up():
     rank_scetion = soup.find_all('li')
-    section_text = "票房排行榜"
-    for i in rank_scetion:
+    section_text = "票房排行榜"    #設定票房排行榜的href的值
+    for i in rank_scetion:    #迴圈遍歷一個一個對比
         if general_debug:
             print(i.text.strip())
         if i.text.strip() == section_text:
@@ -32,7 +32,7 @@ def start_up():
                 return link
 
 #    混合連結
-def link_mix():
+def link_mix():    #呼叫全域變數 soup 跟 url
     global soup
     global url
 
@@ -42,16 +42,16 @@ def link_mix():
         next_response = requests.get(next_url)
         next_response.encoding = 'utf-8'
         next_html = next_response.text
-        soup = BeautifulSoup(next_html, 'lxml')
+        soup = BeautifulSoup(next_html, 'lxml')    #修改全域變數soup
     else:
         print("Error:next section link didn't found")
-    url = release
+    url = release    #修改全域變數url
 
 #    第二次混和
-def second_link_mix():
-    global soup
+def second_link_mix():    #跳轉到top20
+    global soup    #設定使用全域變數
     view_more = soup.find_all('a')
-    view_text = 'twweekend'
+    view_text = 'twweekend'    #選擇抓取台北的top20
 
     for i in view_more:
         link = i.get('href')
@@ -67,10 +67,10 @@ def second_link_mix():
     next_response = requests.get(next_url)
     next_response.encoding = 'utf-8'
     next_html = next_response.text
-    soup = BeautifulSoup(next_html, 'lxml')
+    soup = BeautifulSoup(next_html, 'lxml')    #修改全域變數
 
 
-def get_rank():
+def get_rank():    #抓取排名,寫完後才想到反正排名都是1到20...直接用迴圈生成就好
     rank_list = []
     table = soup.find_all("table")[1]
     trl = table.find_all('tr')
@@ -84,8 +84,8 @@ def get_rank():
     return rank_list
 
 
-#   寫完才想到直接用loop生一個陣列就好...
-def get_title():
+
+def get_title():    #抓取標題
     title_list = []
     table = soup.find_all("table")[1]
     trl = table.find_all('tr')
@@ -99,7 +99,7 @@ def get_title():
     return title_list
 
 
-def get_box():
+def get_box():    #抓取票房
     current_box_list = []
     total_box_list = []
     table = soup.find_all("table")[1]
@@ -116,8 +116,8 @@ def get_box():
 
     return current_box_list, total_box_list
 
-
-"""
+#以下是此代碼的核心部分,不要亂摸會出事
+"""        
                              _ooOoo_
                             o8888888o
                             88" . "88
