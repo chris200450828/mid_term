@@ -22,7 +22,7 @@ yesterday = today - timedelta(days=1)
 yesterday = yesterday.strftime("%m/%d").lstrip("0")
 date = today.strftime("%m/%d").lstrip("0")
 
-# 設置時間緩沖,實際上是五個小時
+# 設置時間緩沖區
 time_buffer = 300
 
 # 調試標誌
@@ -40,18 +40,14 @@ response.encoding = 'utf-8'
 html = response.text
 soup = BeautifulSoup(html, 'lxml')
 
-# 獲取所有帖
+# 獲取所有帖子
 general = soup.find_all("div", class_='r-ent')
 
 
-# 處理日期,如果傳進真,那會嘗試抓取time_buffer範圍內的資料
+# 處理日期
 def day_manager(opt=None):
     global apply_date
-    if opt is None:
-        apply_date = date
-        print("advance day manager is off,will use today's forum,using {} as date variable".format(date))
-        print("=====================================")
-    elif opt == True:
+    if opt == True:
         print("applying advance day manager")
         now = datetime.now()
         hour = now.hour
@@ -65,13 +61,15 @@ def day_manager(opt=None):
             apply_date = yesterday
             print("using yesterday's date as criterion, using {} as date variable".format(yesterday))
             print("=====================================")
+    elif opt is None:
+        apply_date = date
+        print("advance day manager is off,will use today's forum,using {} as date variable".format(date))
+        print("=====================================")
     else:
         apply_date = date
         print("advance day manager is off,will use today's forum,using {} as date variable".format(date))
         print("=====================================")
 
-
-day_manager()    #呼叫day_manager函式
 
 
 # 檢查日期是否符合
@@ -144,7 +142,7 @@ def get_push(i):
         return " "
 
 
-# 進階鏈接儲存模式,如果為真,則href內會變成正常可以直接點進去的連結,否則為題目正常要求
+# 高級鏈接模式
 def advance_link_mode(opt=None, pop=None):
     global adv_link
     if opt == True:
@@ -176,7 +174,7 @@ def link_mix(original_link):
     return link_result
 
 
-# 壓縮資料
+# 獲取數據
 def get_data():
     author_list, title_list, push_list, link_list = [], [], [], []
     for i in general:
@@ -203,7 +201,7 @@ def get_data():
 
             data_list = []
             data_zip = zip(author_list, title_list, push_list, link_list)
-            for author, title, push, link in data_zip:    #json儲存
+            for author, title, push, link in data_zip:
                 data_list.append({
                     "author": author,
                     "title": title,
@@ -213,7 +211,7 @@ def get_data():
     return data_list
 
 
-# 進階鏈接儲存模式,如果為真,則檔名會變為,'日期'+article.json.否則為題目正常要求
+# 高級文件管理器
 def advance_file_manager(data_list, opt=None):
     if opt == True:
         save_day = today.strftime("%Y_%m_%d")
