@@ -63,4 +63,4 @@ def save_to_csv(opt=None):
         df.to_csv('player.csv', index=False, encoding=encodings)
 
 
-save_to_csv()  # 如若為真則不儲存身高資料,否則儲存身高資料,畢竟功能都做出來我捨不得刪掉
+save_to_csv(True)  # 如若為真則不儲存身高資料,否則儲存身高資料,畢竟功能都做出來我捨不得刪掉
