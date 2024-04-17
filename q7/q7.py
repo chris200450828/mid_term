@@ -11,7 +11,7 @@ url = qcs.start_up(TEAM)
 for i in url:
     print(i)
     soup = qcs.get_soup(i)
-    qcs.get_data(soup, opt=True)
+    qcs.get_data(soup)
     result_list.append(qcs.get_data(soup))
 
 
