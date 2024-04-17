@@ -18,6 +18,6 @@ for i in forward_l:    #迴圈遍歷以抓取遠期匯率的資料
     forward_response = requests.get(i)
     forward_soup = BeautifulSoup(forward_response.text, "html.parser")
     date_l, buy_l, sell_l = start_up.get_forward_data(forward_soup)
-    filename = date_l[0][:3].strip()
+    filename = date_l[0][:3].strip()    #選用幣值名稱當作檔案名稱
     result = zip(date_l, buy_l, sell_l)
     start_up.to_forward_csv(filename, result)
