@@ -2,7 +2,7 @@ class FuncStuff:
     def __init__(self, soup):    #初始化類別,接受一個變數,通常為soup
         self.soup = soup
 
-    def _get_data_list(self):    #抓取資料函式,通常而言部會在main裡call到這個函式
+    def _get_data_list(self):    #抓取資料函式,通常而言不會在main裡call到這個函式
         link_l, title_l, author_l = [], [], []
         grand = self.soup.find_all('div', class_="r-ent")    #先抓取最上層連結
         for i in grand:    #用迴圈遍歷
