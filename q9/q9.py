@@ -7,7 +7,7 @@ cf.link_mix()
 data = cf.get_release_data()
 
 
-def file_exist_checker():
+def file_exist_checker():    #檢查檔案是否存在,後面才想到這個功能其實沒啥卵用
     file = "movie.csv"
     if os.path.isfile(file):
         print("File exist,process failed")
