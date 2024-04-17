@@ -55,7 +55,9 @@ def get_data(soup):
         pos_l.append(pos.text)
 
         ht = i.find("td", {'data-stat': "height"})
-        ht_l.append(ht.text)
+        height_text = ht.text
+        height_text_f = height_text[:1] + '=' + height_text[2:]
+        ht_l.append(height_text_f)
 
         wt = i.find("td", {'data-stat': "weight"})
         wt_l.append(wt.text)
