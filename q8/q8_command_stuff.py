@@ -1,4 +1,4 @@
-def get_data(data, pop=None):
+def get_data(data, pop=None):    #僅接受請求api後的變數,pop為真則印出處理後的資料,由於資料較多所以選擇做選項
     title_list = []
     authors_list = []
     link_list = []
@@ -6,7 +6,7 @@ def get_data(data, pop=None):
     publishedDate_list = []
 
     if 'items' in data:
-        for item in data['items']:
+        for item in data['items']:    #資料選取
             volume_info = item.get('volumeInfo', {})
             title = volume_info.get('title', 'Unknown Title')
             link = item.get('selfLink')
@@ -20,7 +20,7 @@ def get_data(data, pop=None):
             publisher_list.append(publisher)
             publishedDate_list.append(publishDate)
 
-    if pop is True:
+    if pop is True:  
         print(title_list)
         print(authors_list)
         print(link_list)
@@ -30,7 +30,7 @@ def get_data(data, pop=None):
     return title_list, authors_list, link_list, publisher_list, publishedDate_list
 
 
-def merge(first, second):
+def merge(first, second):    #定義混合函式
     result = first + second
     return result
 
