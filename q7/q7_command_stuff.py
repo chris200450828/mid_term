@@ -54,7 +54,7 @@ def get_data(soup):
         pos = i.find("td", {'data-stat': "pos"})
         pos_l.append(pos.text)
 
-        ht = i.find("td", {'data-stat': "height"})
+        ht = i.find("td", {'data-stat': "height"})    #為了規避6-7會被excel視為日期的問題,會將6-7儲存成6-11以規避格式問題
         height_text = ht.text
         height_text_f = height_text[:1] + '=' + height_text[2:]
         ht_l.append(height_text_f)
