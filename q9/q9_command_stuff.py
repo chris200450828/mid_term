@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
-global soup
+global soup    #定義全域變數
 general_debug = False
 gr_debug = False
 lm_debug = False
@@ -68,7 +68,7 @@ def get_release_data():
         if general_debug or grd_debug:
             print(final_link)
 
-    result = zip(name_list, date_list, link_list)
+    result = zip(name_list, date_list, link_list)    #壓縮資料,為後續儲存做準備
     return result
 
 
